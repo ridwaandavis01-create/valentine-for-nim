@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Nim 🤍</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      color: #333;
+      text-align: center;
+      overflow-x: hidden;
+      padding: 24px;
+    }
+
+    .card {
+      background: white;
+      padding: 36px 28px;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      max-width: 560px;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 { font-size: 2rem; margin-bottom: 12px; }
+    p { font-size: 1.05rem; line-height: 1.5; margin-bottom: 18px; }
+
+    .heart { font-size: 2.2rem; margin-bottom: 14px; }
+
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 30px;
+      background: #e91e63;
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+
+    button:hover { background: #d81b60; transform: scale(1.04); }
+
+    .message { display: none; margin-top: 18px; font-size: 1.1rem; font-weight: 500; }
+
+    .photos { display: flex; gap: 10px; justify-content: center; margin: 18px 0; }
+    .photos img { width: 90px; height: 90px; object-fit: cover; border-radius: 14px; box-shadow: 0 8px 16px rgba(0,0,0,0.15); }
+
+    .floating-heart {
+      position: absolute;
+      font-size: 1.5rem;
+      animation: floatUp 3s ease forwards;
+      opacity: 0.95;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-140px) scale(1.4); opacity: 0; }
+    }
+
+    @media (max-width: 420px) {
+      .photos img { width: 70px; height: 70px; }
+      .card { padding: 28px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="heart">🤍</div>
+    <h1>Nim, my bunny…</h1>
+    <p>
+      Six Valentine’s together.<br />
+      Not one and the same place together.<br /><br />
+      But loving you from a distance has never changed how sure I am.<br />
+      This is our last Valentine being apart.
+    </p>
+
+    <div class="photos">
+      <img src="photo1.jpg.PNG" alt="Us together" />
+      <img src="photo2.jpg.JPG" alt="A favourite memory" />
+      <img src="photo3.jpg.jpg" alt="My bunny" />
+    </div>
+
+    <button id="yesBtn">Yes, I’ll be your Valentine 💕</button>
+    <div class="message" id="message">I knew it 🤍 I love you.</div>
+  </div>
+
+  <!-- Optional audio: add a file named "music.mp3" to the repo root or replace the src with a hosted mp3 URL -->
+  <!-- <audio id="music" src="music.mp3"></audio> -->
+
+  <script>
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'floating-heart';
+      heart.innerText = '🤍';
+      heart.style.left = Math.random() * 90 + 'vw';
+      heart.style.bottom = '-10px';
+      heart.style.fontSize = (12 + Math.random() * 28) + 'px';
+      heart.style.animationDuration = 2 + Math.random() * 2 + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 4000);
+    }
+
+    document.getElementById('yesBtn').addEventListener('click', function() {
+      const message = document.getElementById('message');
+      message.style.display = 'block';
+
+      const audio = document.getElementById('music');
+      if (audio) {
+        audio.volume = 0.7;
+        audio.play().catch(() => {});
+      }
+
+      for (let i = 0; i < 18; i++) createHeart();
+
+      // avoid multiple clicks
+      this.disabled = true;
+      this.style.opacity = 0.9;
+    });
+  </script>
+</body>
+</html>
